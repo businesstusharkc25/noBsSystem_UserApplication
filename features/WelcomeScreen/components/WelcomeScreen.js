@@ -1,16 +1,24 @@
 import { Image, SafeAreaView, Text, View } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { ui } from "../../../styles";
 import { styles } from "./styles";
 import { TouchableOpacity } from "react-native";
 import { appRouteNames } from "../../../data";
+import { useWalletConnect } from "@walletconnect/react-native-dapp";
 
 const WelcomeScreen = ({ navigation }) => {
+  const connector = useWalletConnect();
+
+  const connectWallet = useCallback(() => {
+    return connector?.connect();
+  }, [connector]);
+
   return (
     <SafeAreaView style={{ ...ui.baseContainer, position: "relative" }}>
       <Text style={styles.appLogoBold}>no_bs</Text>
 
       <TouchableOpacity
+        onPress={connectWallet}
         style={{ position: "absolute", bottom: 150, right: 20, left: 20 }}
       >
         <View
