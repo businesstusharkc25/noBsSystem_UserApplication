@@ -24,10 +24,6 @@ const WelcomeScreen = ({ navigation }) => {
             justifyContent: "center",
           }}
         >
-          <Image
-            source={require("../../../assets/images/metamask_icon.png")}
-            style={{ width: 40, height: 40 }}
-          />
           <Text
             style={{
               color: "white",
