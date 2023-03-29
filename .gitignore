@@ -4,3 +4,4 @@
 /.expo
 /yarn.lock
 /.env
+*.log
