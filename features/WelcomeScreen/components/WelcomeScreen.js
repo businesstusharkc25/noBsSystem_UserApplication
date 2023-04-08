@@ -5,12 +5,15 @@ import { styles } from "./styles";
 import { TouchableOpacity } from "react-native";
 import { appRouteNames } from "../../../data";
 
+import { ConnectWallet } from "@thirdweb-dev/react-native";
+
 const WelcomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ ...ui.baseContainer, position: "relative" }}>
       <Text style={styles.appLogoBold}>no_bs</Text>
-
+      <ConnectWallet />
       <TouchableOpacity
+        onPress={() => console.log("hellor")}
         style={{ position: "absolute", bottom: 150, right: 20, left: 20 }}
       >
         <View

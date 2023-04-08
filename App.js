@@ -1,5 +1,10 @@
+import { ThirdwebProvider } from "@thirdweb-dev/react-native";
 import Routes from "./Routes";
 
 export default function App() {
-  return <Routes />;
+  return (
+    <ThirdwebProvider activeChain={"mainnet"}>
+      <Routes />
+    </ThirdwebProvider>
+  );
 }
