@@ -22,6 +22,7 @@ const Routes = () => {
   const defaultHeaderOptions = ({ navigation }) => {
     return {
       header: () => <AppHeader navigation={navigation} />,
+      statusBarColor: "black",
     };
   };
 
@@ -29,7 +30,7 @@ const Routes = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={appRouteNames.welcomeScreen}>
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: false, statusBarColor: "black" }}
           name={appRouteNames.welcomeScreen}
           component={UserWelcomeScreen}
         />

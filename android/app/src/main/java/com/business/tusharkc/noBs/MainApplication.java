@@ -1,4 +1,4 @@
-package com.business.tusharkc.no_bs;
+package com.business.tusharkc.noBs;
 
 import android.app.Application;
 import android.content.res.Configuration;

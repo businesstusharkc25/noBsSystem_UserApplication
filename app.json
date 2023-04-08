@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0F0E0E"
       },
-      "package": "com.business.tusharkc.no_bs"
+      "package": "com.business.tusharkc.noBs"
     },
     "web": {
       "favicon": "./assets/favicon.png"

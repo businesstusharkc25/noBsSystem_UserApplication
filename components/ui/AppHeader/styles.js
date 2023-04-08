@@ -1,13 +1,12 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing, typography } from "../../../styles";
+import { colors, typography } from "../../../styles";
 
 export const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: spacing.droidSafeArea.paddingTop,
     backgroundColor: colors.appBaseBlack.backgroundColor,
     borderBottomColor: colors.appBorderColor.borderColor,
     borderBottomWidth: 1,
-    padding: 12,
+    padding: 4,
   },
   headerLogo: {
     color: typography.textWhite.color,
@@ -18,7 +17,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 8,
+    padding: 4,
   },
   headerLeft: {
     flexDirection: "row",

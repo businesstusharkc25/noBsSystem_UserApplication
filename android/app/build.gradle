@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.business.tusharkc.no_bs'
+    namespace 'com.business.tusharkc.noBs'
     defaultConfig {
-        applicationId 'com.business.tusharkc.no_bs'
+        applicationId 'com.business.tusharkc.noBs'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
