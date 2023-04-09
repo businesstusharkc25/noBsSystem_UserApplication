@@ -12,6 +12,7 @@
     "@react-native-community/slider": "4.4.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.3",
     "@thirdweb-dev/react-native": "^0.2.4",
     "@thirdweb-dev/react-native-compat": "^0.2.4",
     "ethers": "^5",
@@ -33,7 +34,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "^13.9.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3"

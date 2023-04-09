@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { appRouteNames } from "./data";
@@ -15,9 +15,11 @@ import ChannelInfoPodcasts from "./screens/ChannelScreens/ChannelInfoPodcasts";
 import ChannelInfoArticles from "./screens/ChannelScreens/ChannelInfoArticles";
 import LatestNewsScreen from "./screens/LatestNewsScreen";
 import ExploreScreen from "./screens/ExploreScreen";
+import { useAddress } from "@thirdweb-dev/react-native";
 
 const Routes = () => {
   const Stack = createNativeStackNavigator();
+  const address = useAddress();
 
   const defaultHeaderOptions = ({ navigation }) => {
     return {
@@ -28,77 +30,86 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={appRouteNames.welcomeScreen}>
-        <Stack.Screen
-          options={{ headerShown: false, statusBarColor: "black" }}
-          name={appRouteNames.welcomeScreen}
-          component={UserWelcomeScreen}
-        />
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.homePageScreen}
-          component={HomePageScreen}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name={appRouteNames.searchScreen}
-          component={SearchScreen}
-        />
+      <Stack.Navigator
+        initialRouteName={
+          address ? appRouteNames.homePageScreen : appRouteNames.welcomeScreen
+        }
+      >
+        {!address ? (
+          <Stack.Screen
+            options={{ headerShown: false, statusBarColor: "black" }}
+            name={appRouteNames.welcomeScreen}
+            component={UserWelcomeScreen}
+          />
+        ) : (
+          <>
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.homePageScreen}
+              component={HomePageScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={appRouteNames.searchScreen}
+              component={SearchScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.notificationScreen}
-          component={NotificationScreen}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.notificationScreen}
+              component={NotificationScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.videoScreen}
-          component={VideoScreen}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.videoScreen}
+              component={VideoScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.podcastScreen}
-          component={PodcastScreen}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.podcastScreen}
+              component={PodcastScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.membershipListsScreen}
-          component={MembershipListScreen}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.membershipListsScreen}
+              component={MembershipListScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.channelInfoVideosScreen}
-          component={ChannelInfoVideos}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.channelInfoVideosScreen}
+              component={ChannelInfoVideos}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.channelInfoPodcastScreen}
-          component={ChannelInfoPodcasts}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.channelInfoPodcastScreen}
+              component={ChannelInfoPodcasts}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.channelInfoArticlesScreen}
-          component={ChannelInfoArticles}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.channelInfoArticlesScreen}
+              component={ChannelInfoArticles}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.latestNews}
-          component={LatestNewsScreen}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.latestNews}
+              component={LatestNewsScreen}
+            />
 
-        <Stack.Screen
-          options={defaultHeaderOptions}
-          name={appRouteNames.exploreNews}
-          component={ExploreScreen}
-          initialParams={{ selectedGenre: "business" }}
-        />
+            <Stack.Screen
+              options={defaultHeaderOptions}
+              name={appRouteNames.exploreNews}
+              component={ExploreScreen}
+              initialParams={{ selectedGenre: "business" }}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,34 +10,8 @@ const WelcomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ ...ui.baseContainer, position: "relative" }}>
       <Text style={styles.appLogoBold}>no_bs</Text>
-      <View
-        onPress={() => console.log("hello")}
-        style={{ position: "absolute", bottom: 150, right: 20, left: 20 }}
-      >
+      <View style={{ position: "absolute", bottom: 150, right: 20, left: 20 }}>
         <ConnectWallet theme={"dark"} />
-        {/* 
-        <View
-          style={{
-            backgroundColor: "#181818",
-            padding: 20,
-            borderRadius: 10,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontWeight: "900",
-              fontSize: 20,
-              paddingLeft: 10,
-            }}
-          >
-            Connect Wallet
-          </Text>
-        </View> */}
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate(appRouteNames.homePageScreen)}
