@@ -19,9 +19,18 @@ const ChannelInfoVideoPage = ({ navigation }) => {
     <ScrollView style={[styles.channelInfoPageContainer]}>
       <View>
         <ChannelInfo navigation={navigation} />
-        <VideoContentCompressed contentData={tempData} />
-        <VideoContentCompressed contentData={tempData} />
-        <VideoContentCompressed contentData={tempData} />
+        <VideoContentCompressed
+          contentData={tempData}
+          navigation={navigation}
+        />
+        <VideoContentCompressed
+          contentData={tempData}
+          navigation={navigation}
+        />
+        <VideoContentCompressed
+          contentData={tempData}
+          navigation={navigation}
+        />
       </View>
     </ScrollView>
   );

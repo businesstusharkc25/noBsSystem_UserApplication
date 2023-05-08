@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     bottom: 0,
-    padding: 8,
+    padding: 16,
   },
 
   replyIcon: { height: 10, width: 10, marginLeft: 8 },

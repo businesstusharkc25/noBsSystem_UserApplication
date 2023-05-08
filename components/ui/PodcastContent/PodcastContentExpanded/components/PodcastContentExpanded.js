@@ -4,24 +4,38 @@ import { styles } from "./styles";
 import { typography, utilStyles } from "../../../../../styles";
 import { DiscussionPanelOverlay } from "../../../../sharedComponents";
 import PodcastPlayer from "./PodcastPlayer";
+import {
+  calcDate,
+  formatCompactNumber,
+} from "../../../../helper/helperFunctions";
 
-const PodcastContentExpanded = () => {
+const PodcastContentExpanded = ({ contentData = {} }) => {
   const [visible, setVisible] = useState(false);
+  const {
+    newsTitle,
+    createdAt,
+    views,
+    thumbnailUrl,
+    contentUrl,
+    id,
+    comments,
+  } = contentData;
 
   return (
     <View style={[styles.podcastContainer]}>
       <Text numberOfLines={3} style={[styles.newsTitles]}>
-        A really long news title. A really long news title. A really long news
-        title. A really long.
+        {newsTitle}
       </Text>
 
       <View style={[styles.contentUtilInfoContainer]}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={{ color: typography.textGray.color }}>
-            25 minutes ago
+            {calcDate(new Date(), createdAt)}
           </Text>
           <View style={[utilStyles.dotSeparator]} />
-          <Text style={{ color: typography.textGray.color }}>200K Views</Text>
+          <Text style={{ color: typography.textGray.color }}>
+            {formatCompactNumber(views)} Views
+          </Text>
         </View>
 
         <TouchableOpacity>
@@ -63,13 +77,17 @@ const PodcastContentExpanded = () => {
       <Image
         style={[styles.podcastCoverImage]}
         source={{
-          uri: "https://images.pexels.com/photos/3065602/pexels-photo-3065602.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          uri: thumbnailUrl,
         }}
       />
+      {contentUrl && <PodcastPlayer uri={contentUrl} />}
 
-      <PodcastPlayer />
-
-      <DiscussionPanelOverlay visible={visible} setVisible={setVisible} />
+      <DiscussionPanelOverlay
+        visible={visible}
+        setVisible={setVisible}
+        contentId={id}
+        comments={comments}
+      />
     </View>
   );
 };

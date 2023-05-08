@@ -4,7 +4,7 @@ import { Audio } from "expo-av";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Slider from "@react-native-community/slider";
 
-const PodcastPlayer = () => {
+const PodcastPlayer = ({ uri }) => {
   const [playbackObj, setPlaybackObj] = useState();
   const [soundObj, setSoundObj] = useState();
   const [isPodcastPlaying, setIsPodcastPlaying] = useState(false);
@@ -22,7 +22,7 @@ const PodcastPlayer = () => {
       const playbackObj = new Audio.Sound();
       const status = playbackObj.loadAsync(
         {
-          uri: "https://firebasestorage.googleapis.com/v0/b/nobsnewsmedia.appspot.com/o/A_AP_Rocky_ft_Skepta_-_Praise_The_Lord_Da_Shine_.mp3?alt=media&token=f9f1193d-15dc-4636-b03e-f3223aa64579",
+          uri,
         },
         { shouldPlay: true }
       );

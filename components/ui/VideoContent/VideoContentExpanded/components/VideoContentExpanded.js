@@ -5,10 +5,24 @@ import { ResizeMode } from "expo-av";
 import VideoPlayer from "expo-video-player";
 import { typography, utilStyles } from "../../../../../styles";
 import DiscussionPanelOverlay from "../../../../sharedComponents/DiscussionPanelOverlay/DiscussionPanelOverlay";
+import {
+  calcDate,
+  formatCompactNumber,
+} from "../../../../helper/helperFunctions";
 
-const VideoContentExpanded = ({ contentData }) => {
+const VideoContentExpanded = ({ contentData = {} }) => {
+  const {
+    contentUrl,
+    newsBody,
+    newsTitle,
+    views,
+    createdAt,
+    id,
+    comments = [],
+  } = contentData;
   const [showMore, setShowMore] = useState(false);
   const [visible, setVisible] = useState(false);
+  const today = new Date();
 
   return (
     <>
@@ -20,14 +34,14 @@ const VideoContentExpanded = ({ contentData }) => {
           shouldPlay: true,
           resizeMode: ResizeMode.COVER,
           source: {
-            uri: "https://static.pexels.com/lib/videos/free-videos.mp4",
+            uri: contentUrl,
           },
         }}
         fullscreen={{ visible: false }}
       />
 
       <View style={[styles.videoDescriptionContainer]}>
-        <Text style={[styles.videoTitle]}>News Title</Text>
+        <Text style={[styles.videoTitle]}>{newsTitle}</Text>
         <Text
           numberOfLines={!showMore ? 1 : undefined}
           style={[styles.videoDescription]}
@@ -35,8 +49,7 @@ const VideoContentExpanded = ({ contentData }) => {
             setShowMore(!showMore);
           }}
         >
-          This is a comment added by the user, representing the views of the
-          user on this topic.
+          {newsBody?.replace(/(<([^>]+)>)/gi, "")}
         </Text>
         <View
           style={{
@@ -53,7 +66,7 @@ const VideoContentExpanded = ({ contentData }) => {
                 fontWeight: "100",
               }}
             >
-              25 Minutes ago
+              {calcDate(today, createdAt)}
             </Text>
             <View style={[utilStyles.dotSeparator]} />
             <Text
@@ -63,7 +76,7 @@ const VideoContentExpanded = ({ contentData }) => {
                 fontWeight: "100",
               }}
             >
-              200K Views
+              {formatCompactNumber(views)} Views
             </Text>
           </View>
           <Image
@@ -102,7 +115,12 @@ const VideoContentExpanded = ({ contentData }) => {
         </TouchableOpacity>
       </View>
 
-      <DiscussionPanelOverlay visible={visible} setVisible={setVisible} />
+      <DiscussionPanelOverlay
+        visible={visible}
+        setVisible={setVisible}
+        contentId={id}
+        comments={comments}
+      />
     </>
   );
 };

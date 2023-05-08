@@ -4,21 +4,20 @@ import { styles } from "./styles";
 import { newsGenre } from "../../../data";
 import NewsGenresTab from "./NewsGenresTab";
 import {
+  BlogContentCompressed,
   PodcastContentCompressed,
   VideoContentCompressed,
 } from "../../../components";
+import { useGetContentQuery } from "../../../services/appContentServices/appContentServices";
 
 const ExplorePage = ({ route, navigation }) => {
-  const tempData = {
-    contentTitle: "News Title",
-    contentViews: "200K",
-    channelHandle: "TusharKc",
-    channelLogo:
-      "https://images.pexels.com/photos/14699589/pexels-photo-14699589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    contentThumbnail:
-      "https://images.pexels.com/photos/14699589/pexels-photo-14699589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    contentType: "Dummy Content Type",
-  };
+  const {
+    params: { selectedGenre },
+  } = route;
+
+  const { data, error } = useGetContentQuery({
+    params: { contentCategory: selectedGenre },
+  });
 
   return (
     <ScrollView style={[styles.explorePageContainer]}>
@@ -37,12 +36,32 @@ const ExplorePage = ({ route, navigation }) => {
           </View>
         </ScrollView>
 
-        <VideoContentCompressed contentData={tempData} />
-        <PodcastContentCompressed contentData={tempData} />
-        <VideoContentCompressed contentData={tempData} />
-        <PodcastContentCompressed contentData={tempData} />
-        <VideoContentCompressed contentData={tempData} />
-        <PodcastContentCompressed contentData={tempData} />
+        {data?.results?.map((result, index) => (
+          <React.Fragment key={index}>
+            {result?.content.contentType == "VIDEO" ? (
+              <View style={{ marginTop: 4 }}>
+                <VideoContentCompressed
+                  contentData={result}
+                  navigation={navigation}
+                />
+              </View>
+            ) : result?.content.contentType == "PODCAST" ? (
+              <View style={{ marginTop: 4 }}>
+                <PodcastContentCompressed
+                  contentData={result}
+                  navigation={navigation}
+                />
+              </View>
+            ) : (
+              <View style={{ marginTop: 4 }}>
+                <BlogContentCompressed
+                  contentData={result}
+                  navigation={navigation}
+                />
+              </View>
+            )}
+          </React.Fragment>
+        ))}
       </View>
     </ScrollView>
   );

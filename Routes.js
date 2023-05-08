@@ -15,11 +15,12 @@ import ChannelInfoPodcasts from "./screens/ChannelScreens/ChannelInfoPodcasts";
 import ChannelInfoArticles from "./screens/ChannelScreens/ChannelInfoArticles";
 import LatestNewsScreen from "./screens/LatestNewsScreen";
 import ExploreScreen from "./screens/ExploreScreen";
-import { useAddress } from "@thirdweb-dev/react-native";
+import { useSelector } from "react-redux";
+import { userSelector } from "./slices";
 
 const Routes = () => {
   const Stack = createNativeStackNavigator();
-  const address = useAddress();
+  const { walletAddress: address } = useSelector(userSelector);
 
   const defaultHeaderOptions = ({ navigation }) => {
     return {

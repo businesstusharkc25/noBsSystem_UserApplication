@@ -9,14 +9,22 @@ import React, { useState } from "react";
 import { BottomSheet } from "react-native-btr";
 import { styles } from "./styles";
 import IndividualComment from "./IndividualComment";
+import { useAddCommentMutation } from "./services/discussionPanelServices";
+import { formatCompactNumber } from "../../helper/helperFunctions";
 
-const DiscussionPanelOverlay = ({ visible, setVisible }) => {
+const DiscussionPanelOverlay = ({
+  visible,
+  setVisible,
+  contentId,
+  comments = [],
+}) => {
   const [commentValue, setCommentValue] = useState("");
-  const [focusedComment, setFocusedComment] = useState(false);
+  const [focusedComment, setFocusedComment] = useState();
+  const [addComment] = useAddCommentMutation();
 
   const toggleBottomSheetView = () => {
     setVisible(!visible);
-    setFocusedComment(false);
+    setFocusedComment();
   };
 
   return (
@@ -31,11 +39,8 @@ const DiscussionPanelOverlay = ({ visible, setVisible }) => {
             <IndividualComment
               focusedComment={focusedComment}
               setFocusedComment={setFocusedComment}
-              commenterAddress={"0x08c55d4bd336f713d0c80a2212f736445243dcf7"}
-              comment={
-                "This is a comment added by the user, representing the views of the user on this topic."
-              }
-              replyCount={"50k"}
+              commenterAddress={focusedComment?.commenterAddress}
+              comment={focusedComment?.comment}
             />
           </View>
         ) : null}
@@ -43,14 +48,33 @@ const DiscussionPanelOverlay = ({ visible, setVisible }) => {
         <View style={styles.bottomSheetContentContainer}>
           <View style={styles.addCommentContainer}>
             <TextInput
-              placeholder="Add your comment"
+              placeholder={`Add your ${focusedComment ? "reply" : "comment"}`}
               style={styles.commentInputStyles}
               onChangeText={setCommentValue}
               value={commentValue}
               placeholderTextColor={"#767676"}
             />
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                let body = { comment: commentValue };
+
+                if (commentValue) {
+                  if (!focusedComment) {
+                    addComment({
+                      contentId,
+                      body,
+                    });
+                  } else {
+                    body.replyingTo = focusedComment?._id;
+                    addComment({
+                      contentId,
+                      body,
+                    });
+                  }
+                }
+              }}
+            >
               <Image
                 style={[styles.sendIconImg]}
                 source={require("../../../assets/icons/send_icon.png")}
@@ -59,17 +83,30 @@ const DiscussionPanelOverlay = ({ visible, setVisible }) => {
           </View>
 
           <ScrollView>
-            <View style={{ marginTop: 2, marginBottom: 2 }}>
-              <IndividualComment
-                focusedComment={focusedComment}
-                setFocusedComment={setFocusedComment}
-                commenterAddress={"0x08c55d4bd336f713d0c80a2212f736445243dcf7"}
-                comment={
-                  "This is a comment added by the user, representing the views of the user on this topic."
-                }
-                replyCount={"50k"}
-              />
-            </View>
+            {!focusedComment
+              ? comments?.map(({ comment, userAddress, replies, _id }, id) => (
+                  <View key={id} style={{ marginTop: 2, marginBottom: 2 }}>
+                    <IndividualComment
+                      focusedComment={focusedComment}
+                      setFocusedComment={setFocusedComment}
+                      commenterAddress={userAddress}
+                      comment={comment}
+                      _id={_id}
+                      replyCount={formatCompactNumber(replies?.length)}
+                    />
+                  </View>
+                ))
+              : comments
+                  ?.find((comment) => comment._id == focusedComment._id)
+                  ?.replies?.map(({ comment, userAddress }, id) => (
+                    <View key={id} style={{ marginTop: 2, marginBottom: 2 }}>
+                      <IndividualComment
+                        focusedComment={focusedComment}
+                        commenterAddress={userAddress}
+                        comment={comment}
+                      />
+                    </View>
+                  ))}
           </ScrollView>
         </View>
       </BottomSheet>
