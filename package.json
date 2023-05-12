@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start --dev-client",
-    "android": "expo run:android",
+    "android": "adb reverse tcp:8080 tcp:8080 && expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web"
   },
@@ -12,11 +12,13 @@
     "@react-native-community/slider": "4.4.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.3",
     "@thirdweb-dev/react-native": "^0.2.4",
     "@thirdweb-dev/react-native-compat": "^0.2.4",
     "ethers": "^5",
-    "expo": "~48.0.10",
+    "expo": "~48.0.11",
     "expo-av": "~13.2.1",
+    "expo-secure-store": "~12.1.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "expo-system-ui": "~2.2.1",
@@ -26,6 +28,7 @@
     "react-native": "0.71.6",
     "react-native-btr": "^2.2.0",
     "react-native-crypto": "^2.2.0",
+    "react-native-dotenv": "^3.4.8",
     "react-native-get-random-values": "^1.8.0",
     "react-native-mmkv": "^2.6.3",
     "react-native-randombytes": "^3.6.1",
@@ -33,7 +36,8 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "^13.9.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3"

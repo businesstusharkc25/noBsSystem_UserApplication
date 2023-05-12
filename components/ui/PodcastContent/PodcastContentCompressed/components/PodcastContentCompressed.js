@@ -1,18 +1,32 @@
-import { Image, Text, View } from "react-native";
+import { Image, TouchableWithoutFeedback } from "react-native";
 import React from "react";
 import { styles } from "./styles";
 import { ContentShortDescription } from "../../../../sharedComponents";
+import { appRouteNames } from "../../../../../data";
 
-const PodcastContentCompressed = ({ contentData }) => {
+const PodcastContentCompressed = ({ contentData = {}, navigation }) => {
+  const { id } = contentData.content;
+
   return (
     <>
-      <Image
-        style={[styles.videoThumbnailImg]}
-        source={{
-          uri: "https://images.pexels.com/photos/14699589/pexels-photo-14699589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        }}
-      />
-
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate(appRouteNames.podcastScreen, {
+            id,
+          })
+        }
+      >
+        {contentData?.content?.thumbnailUrl ? (
+          <Image
+            style={[styles.videoThumbnailImg]}
+            source={{
+              uri: contentData?.content?.thumbnailUrl,
+            }}
+          />
+        ) : (
+          <></>
+        )}
+      </TouchableWithoutFeedback>
       <ContentShortDescription contentData={contentData} />
     </>
   );

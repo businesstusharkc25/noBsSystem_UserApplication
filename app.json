@@ -4,7 +4,7 @@
     "slug": "no_bs",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/no_bsLogo.png",
     "userInterfaceStyle": "automatic",
 
     "splash": {
@@ -15,7 +15,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.business.tusharkc.nobs"
+      "bundleIdentifier": "com.business.tusharkc.nobs",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {

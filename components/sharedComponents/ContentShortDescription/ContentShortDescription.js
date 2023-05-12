@@ -2,16 +2,15 @@ import { Image, Text, View } from "react-native";
 import React from "react";
 import { styles } from "./styles";
 import { typography, utilStyles } from "../../../styles";
+import { calcDate } from "../../helper/helperFunctions";
 
 const ContentShortDescription = ({ contentData = {} }) => {
-  const {
-    contentTitle,
-    contentViews,
-    channelHandle,
-    uploadedTime,
-    channelLogo,
-    contentType,
-  } = contentData;
+  const { channelHandle = "", channelLogoUrl } = contentData?.channelInfo;
+
+  const { createdAt } = contentData?.content;
+
+  const { newsTitle, views, contentType } = contentData?.content;
+  const today = new Date();
 
   return (
     <View style={{ padding: 4, backgroundColor: "#201E1E" }}>
@@ -19,7 +18,7 @@ const ContentShortDescription = ({ contentData = {} }) => {
         <Image
           style={[styles.channelImage]}
           source={{
-            uri: channelLogo,
+            uri: channelLogoUrl,
           }}
         />
 
@@ -31,7 +30,7 @@ const ContentShortDescription = ({ contentData = {} }) => {
               fontWeight: "600",
             }}
           >
-            {contentTitle}
+            {newsTitle}
           </Text>
 
           <View
@@ -46,7 +45,7 @@ const ContentShortDescription = ({ contentData = {} }) => {
                 fontSize: 10,
               }}
             >
-              25 Min ago by {channelHandle}
+              {calcDate(today, createdAt)} by {channelHandle}
             </Text>
 
             <View style={[utilStyles.dotSeparator]} />
@@ -57,10 +56,10 @@ const ContentShortDescription = ({ contentData = {} }) => {
                 color: typography.textWhite.color,
               }}
             >
-              {contentViews}
+              {views}
             </Text>
 
-            <View style={[utilStyles.dotSeparator]} />
+            {/* <View style={[utilStyles.dotSeparator]} />
 
             <Text
               style={{
@@ -68,8 +67,8 @@ const ContentShortDescription = ({ contentData = {} }) => {
                 color: typography.textWhite.color,
               }}
             >
-              {contentType}
-            </Text>
+              {contentType?.charAt(0)?.toUpperCase() + contentType?.slice(1)}
+            </Text> */}
           </View>
         </View>
       </View>

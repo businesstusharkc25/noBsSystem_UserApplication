@@ -1,9 +1,13 @@
 import { Button, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import React from "react";
-import { typography, utilStyles } from "../../../styles";
+import { typography } from "../../../styles";
+import { formatCompactNumber } from "../../helper/helperFunctions";
 
-const ChannelInfoShort = () => {
+const ChannelInfoShort = ({ channelInfo = {} }) => {
+  const { channelHandle, channelName, channelLogoUrl, membershipHoldersCount } =
+    channelInfo;
+
   return (
     <View style={[styles.channelInfoContainerBox]}>
       <View
@@ -16,7 +20,7 @@ const ChannelInfoShort = () => {
         <Image
           style={[styles.channelLogoImage]}
           source={{
-            uri: "https://images.pexels.com/photos/14699589/pexels-photo-14699589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            uri: channelLogoUrl,
           }}
         />
 
@@ -30,17 +34,21 @@ const ChannelInfoShort = () => {
           }}
         >
           <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ color: typography.textWhite.color, fontSize: 12 }}>
-                @channelHandle
-              </Text>
-              <View style={[utilStyles.dotSeparator]} />
-              <Text style={{ color: typography.textWhite.color, fontSize: 12 }}>
-                channel_name
-              </Text>
-            </View>
             <Text style={{ color: typography.textWhite.color, fontSize: 12 }}>
-              2K Members
+              @{channelHandle}
+            </Text>
+
+            <Text
+              style={{
+                color: typography.textWhite.color,
+                fontSize: 12,
+                paddingVertical: 2,
+              }}
+            >
+              {channelName}
+            </Text>
+            <Text style={{ color: typography.textWhite.color, fontSize: 12 }}>
+              {formatCompactNumber(membershipHoldersCount)} Members
             </Text>
           </View>
           <TouchableOpacity style={[styles.actionButton]}>

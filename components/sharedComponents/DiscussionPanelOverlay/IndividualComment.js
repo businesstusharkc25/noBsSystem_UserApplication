@@ -8,11 +8,12 @@ const IndividualComment = ({
   replyCount,
   setFocusedComment,
   focusedComment = false,
+  _id,
 }) => {
   return (
     <View style={[styles.commentContainer]}>
       <Text style={[styles.accountAddress]}>
-        {`${commenterAddress.substr(0, 5)}...${commenterAddress.substr(
+        {`${commenterAddress?.substr(0, 5)}...${commenterAddress?.substr(
           commenterAddress.length - 7,
           commenterAddress.length
         )}`}
@@ -22,7 +23,7 @@ const IndividualComment = ({
 
       {!focusedComment ? (
         <TouchableOpacity
-          onPress={() => setFocusedComment(true)}
+          onPress={() => setFocusedComment({ comment, commenterAddress, _id })}
           style={[styles.repliesContainer]}
         >
           <Text style={[styles.replyCount]}>{replyCount}</Text>
